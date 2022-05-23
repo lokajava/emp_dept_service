@@ -1,11 +1,14 @@
 package com.employee.demo.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.employee.demo.exception.DepartmentNotFoundException;
 import com.employee.demo.exception.EmployeeAlreadyExistsException;
 import com.employee.demo.exception.EmployeeNotFoundException;
+import com.employee.demo.exception.LimitExceedException;
 import com.employee.demo.model.Department;
 import com.employee.demo.model.Employee;
 import com.employee.demo.model.EmployeeDepartment;
@@ -24,11 +27,20 @@ public class EmployeeSeviceImpl implements EmployeeService {
 		if(employeeRepository.existsById(employee.getEmployeeNumber())) {
 			throw new EmployeeAlreadyExistsException("employee already exists with given employee number");
 		}
+		if(employee.getEmployeeName().matches("[a-zA-Z]+")==false)
+		{
+			throw new LimitExceedException("only alphabet characters are allowed for employee name");
+		}
+		else if(employee.getEmployeeNumber()>9999999999L||employee.getEmployeeName().length()>100||employee.getSalary()>9999999999L)
+		{
+			throw new LimitExceedException("Entered value is beyond limit");
+		}
+		else
 		return employeeRepository.save(employee);
 	}
 
 	@Override
-	public Employee getEmployee(int employeeNumber) {
+	public Employee getEmployee(Long employeeNumber) {
 		if(employeeRepository.existsById(employeeNumber)==false)
 		{
 			throw new EmployeeNotFoundException("employee with given employee Number not found");
@@ -37,7 +49,7 @@ public class EmployeeSeviceImpl implements EmployeeService {
 	}
 
 	@Override
-	public Employee updateEmployee(int employeeNumber,Employee employee) {
+	public Employee updateEmployee(Long employeeNumber,Employee employee) {
 
 		if(employeeRepository.existsById(employeeNumber)==false)
 		{
@@ -51,7 +63,7 @@ public class EmployeeSeviceImpl implements EmployeeService {
 	}
 
 	@Override
-	public String deleteEmployee(int employeeNumber) {
+	public String deleteEmployee(Long employeeNumber) {
 		if(employeeRepository.existsById(employeeNumber)==false)
 		{
 			throw new EmployeeNotFoundException("employee with given employee Number not found");

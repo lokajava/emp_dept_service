@@ -5,9 +5,9 @@ import com.employee.demo.model.EmployeeDepartment;
 public interface EmployeeService {
 
 	Employee addEmployee(Employee employee);
-	Employee getEmployee(int employeeNumber);
-	Employee updateEmployee(int employeeNumber,Employee employee);
-	String deleteEmployee(int employeeNumber);
+	Employee getEmployee(Long employeeNumber);
+	Employee updateEmployee(Long employeeNumber,Employee employee);
+	String deleteEmployee(Long employeeNumber);
 	//List<Employee> listOfEmployeeWithSameDepartment(String departmentCode);
 	EmployeeDepartment listOfEmployeeWithDepartmentDetails(String departmentCode);
 }

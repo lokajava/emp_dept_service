@@ -18,7 +18,7 @@ public class Employee {
 	@Id
 	@Column(name = "employee_no")
 	@Range(min=0, max=MAX_RANGE)
-	private int employeeNumber;
+	private Long employeeNumber;
 	@Column(name = "employee_name")
 	@Size(max = 100)
 	private String employeeName;
@@ -33,10 +33,10 @@ public class Employee {
 	private Double salary;
 	
 	//private Department department;
-	public int getEmployeeNumber() {
+	public Long getEmployeeNumber() {
 		return employeeNumber;
 	}
-	public void setEmployeeNumber(int employeeNumber) {
+	public void setEmployeeNumber(Long employeeNumber) {
 		this.employeeNumber = employeeNumber;
 	}
 	public String getEmployeeName() {

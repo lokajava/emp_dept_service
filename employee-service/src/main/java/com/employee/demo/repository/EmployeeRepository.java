@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.employee.demo.model.Employee;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Integer>
+public interface EmployeeRepository extends JpaRepository<Employee, Long>
 {
 	List<Employee> getEmployeeByDepartmentCode(String departmentCode);
 
