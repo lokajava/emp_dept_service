@@ -6,6 +6,7 @@ public class EmployeeDepartment {
 
 	private Department department;
 	private List<Employee> employees;
+	
 	public Department getDepartment() {
 		return department;
 	}

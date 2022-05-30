@@ -19,7 +19,8 @@ public class Department {
 	private String departmentCode;
 	private String departmentName;
 	@OneToMany(cascade=CascadeType.ALL, targetEntity=Employee.class)
-	@JoinColumn(name="department_code")
+	@JoinColumn(name = "department_code")
+
 	private List<Employee> employees=new ArrayList<>();
 	
 	public int getDepartmentId() {

@@ -28,11 +28,10 @@ public class Employee {
 	@Column(name = "department_code")
 	@Size(max = 2)
 	private String departmentCode;
-	@Column(name="salary")
+	@Column(name = "salary")
 	@Max(value = MAX_RANGE)
 	private Double salary;
 	
-	//private Department department;
 	public Long getEmployeeNumber() {
 		return employeeNumber;
 	}

@@ -2,6 +2,8 @@ package com.employee.demo.controller;
 
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,19 +30,21 @@ import com.employee.demo.service.EmployeeService;
 public class  EmployeeController {
 	@Autowired
 	EmployeeService service;
-	
+	Logger logger = LoggerFactory.getLogger(EmployeeController.class);
 	@RequestMapping("/")
 	public ModelAndView home()
 	{
 		return new ModelAndView("home");
 	}
 	 @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
-	 @ExceptionHandler(value=EmployeeAlreadyExistsException.class)
+	 @ExceptionHandler(value = EmployeeAlreadyExistsException.class)
 	 public ResponseEntity addEmployee(Employee employee)	
 		{
-			
+			logger.info("EmployeeController.addEmployee started");
 		 try {
+			
 			 return new ResponseEntity(service.addEmployee(employee), HttpStatus.OK);
+			 
 		 }
 			catch(RuntimeException e)
 		 {
@@ -58,6 +62,7 @@ public class  EmployeeController {
 	@GetMapping("/get/{employeeNumber}")
 	public ResponseEntity<Employee> getEmployee(@PathVariable Long employeeNumber)
 	{
+		logger.info("EmployeeController.getEmployee started");
 		try {
 			return new ResponseEntity<Employee>(service.getEmployee(employeeNumber), HttpStatus.OK) ;
 		}
@@ -71,6 +76,7 @@ public class  EmployeeController {
 	@PutMapping("/update/{employeeNumber}")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable Long employeeNumber, @RequestBody Employee employee)
 	{
+		logger.info("EmployeeController.updateEmployee started");
 		try
 		{
 			return new ResponseEntity<Employee>(service.updateEmployee(employeeNumber, employee), HttpStatus.OK);
@@ -83,6 +89,7 @@ public class  EmployeeController {
 	@DeleteMapping("/delete/{empId}")
 	public ResponseEntity<String> deleteEmployee(@PathVariable Long empId)
 	{
+		logger.info("EmployeeController.deleteEmployee started");
 		try
 		{
 			return new ResponseEntity<String>(service.deleteEmployee(empId), HttpStatus.OK);
@@ -96,6 +103,7 @@ public class  EmployeeController {
 	@GetMapping("/list/{departmentCode}")
 	public ResponseEntity list(@PathVariable String departmentCode)
 	{
+		logger.info("EmployeeController.list started");
 		try
 		{
 			return new ResponseEntity<EmployeeDepartment>(service.listOfEmployeeWithDepartmentDetails(departmentCode), HttpStatus.OK);
